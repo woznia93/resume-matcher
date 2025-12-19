@@ -1,4 +1,4 @@
-from fastapi import FastAPI, File, UploadFile, Form
+from fastapi import FastAPI, File, UploadFile, Form, HTTPException
 import pdfplumber
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
@@ -9,7 +9,7 @@ model = SentenceTransformer('all-MiniLM-L6-v2')
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"]
@@ -67,9 +67,9 @@ async def analyze_resume(
     )[0][0]
 
     return {
-        "filename" : resume_text[:500],
-        "job_description_length" : job_description[:500],
-        "match_score" : round(float(similarity), 3),
-        "missing_skills" : missing_skills,
+        "match_score": round(float(similarity), 3),
+        "resume_skills": resume_skills,
+        "job_skills": job_skills,
+        "missing_skills": missing_skills,
         "resume_preview": resume_text[:300]
     }
