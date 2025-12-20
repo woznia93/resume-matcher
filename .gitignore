@@ -21,3 +21,5 @@ venv/
 
 
 models/
+
+training_data.jsonl
