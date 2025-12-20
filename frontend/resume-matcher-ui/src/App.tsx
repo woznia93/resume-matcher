@@ -110,7 +110,10 @@ function App() {
                   <span>Analyzing...</span>
                 </>
               ) : (
-                <>Analyze Resume</>
+                <>
+                  <span className="text-xl">🚀</span>
+                  <span>Analyze Resume</span>
+                </>
               )}
             </button>
 
